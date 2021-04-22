@@ -52,7 +52,7 @@ class Timer(commands.Cog):
                     break
 
         except:
-            await ctx.send(f"Önce düzgün gir üstad. Misal, **geyik!sayaç 10dakika**")
+            await ctx.send(f"Önce düzgün gir üstad. Misal, **g!sayaç 10m**")
 
 
 
