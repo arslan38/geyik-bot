@@ -10,7 +10,7 @@ cffi==1.14.5
 chardet==4.0.0
 colorama==0.4.4
 cycler==0.10.0
-discord.py==2.0.0a3021+g42463bae
+discord.py==2.0.0
 distlib==0.3.1
 dlib==19.21.1
 ecdsa==0.16.1
