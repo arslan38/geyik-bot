@@ -6,13 +6,17 @@ class Timer(commands.Cog):
     def __init__(self,bot):
         self.bot = bot
     @commands.command()
-    async def sayaç(self, ctx, timeInput,mode='--m'):
+    async def sayaç(self, ctx, timeInput,timeInput2='0s',mode='--m'):
+        time=0
         try:
             try:
                 time = int(timeInput)
             except:
                 convertTimeList = {'saniye':1,'s':1,'seconds':1, 'm':60,'dakika':60,'minutes':60, 'h':3600,'hours':3600,'saat':3600, 'day':86400,'gün':86400,'d':86400}
-                time = int(timeInput[:-1]) * convertTimeList[timeInput[-1]]
+                for timer in [timeInput,timeInput2]:
+                    time += int(timer[:-1]) * convertTimeList[timer[-1]]
+                if convertTimeList[timeInput[-1]]==1:mode=='--s'
+                    
             await ctx.message.delete()
             if time > 86400:
                 await ctx.send("Maalesef 1 günden fazlasını saymayı bilmiyorum.")
@@ -21,9 +25,11 @@ class Timer(commands.Cog):
                 await ctx.send("Negatif zaman mı olur pezevenk :/")
                 return
             if time >= 3600:
-                message = await ctx.send(f"Sayaç: {time//3600} saat {time%3600//60} dakika {time%60} saniye")
+                if mode=='--s':message = await ctx.send(f"Sayaç: {time//3600} saat {time%3600//60} dakika {time%60} saniye")
+                elif mode=='--m':message = await ctx.send(f"Sayaç: {time//3600} saat {time%3600//60} dakika")
             elif time >= 60:
-                message = await ctx.send(f"Sayaç: {time//60} dakika {time%60} saniye")
+                if mode=='--s':message = await ctx.send(f"Sayaç: {time//60} dakika {time%60} saniye")
+                elif mode=='--m':message = await ctx.send(f"Sayaç: {time//60} dakika {time%60} saniye")
             elif time < 60:
                 message = await ctx.send(f"Sayaç: {time} saniye")
             while True:
@@ -41,9 +47,11 @@ class Timer(commands.Cog):
                     time -= 60
                     
                 if time >= 3600:
-                    await message.edit(content=f"Sayaç: {time//3600} saat {time %3600//60} dakika {time%60} saniye")
+                    if mode=='--s':await message.edit(content=f"Sayaç: {time//3600} saat {time %3600//60} dakika {time%60} saniye")
+                    elif mode=='--m':await message.edit(content=f"Sayaç: {time//3600} saat {time %3600//60} dakika")
                 elif time >= 60:
-                    await message.edit(content=f"Sayaç: {time//60} dakika {time%60} saniye")
+                    if mode=='--s':await message.edit(content=f"Sayaç: {time//60} dakika {time%60} saniye")
+                    elif mode=='--m':await message.edit(content=f"Sayaç: {time//60} dakika")
                 elif time < 60:
                     await message.edit(content=f"Sayaç: {time} saniye")
                 if time <= 0:
