@@ -11,7 +11,7 @@
 
 <div align=center>
 
-  <a href="https://github.com/arslan38/geyik-bot/LICENSE">
+  <a href="https://github.com/arslan38/geyik-bot/blob/main/LICENSE">
     <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="shield.png">
   </a>
 
