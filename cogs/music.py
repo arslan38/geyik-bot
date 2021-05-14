@@ -163,7 +163,7 @@ class Player(wavelink.Player):
             self.queue.add(*tracks.tracks)
         elif len(tracks) == 1:
             self.queue.add(tracks[0])
-            await ctx.send(f"Added {tracks[0].title} to the queue.")
+            await ctx.send(f"{tracks[0].title} sıraya eklendi.")
         else:
             if (track := await self.choose_track(ctx, tracks)) is not None:
                 self.queue.add(track)
@@ -181,7 +181,7 @@ class Player(wavelink.Player):
             )
 
         embed = discord.Embed(
-            title="Choose a song",
+            title="Bir şarkı seç",
             description=(
                 "\n".join(
                     f"**{i+1}.** {t.title} ({t.length//60000}:{str(t.length%60).zfill(2)})"
@@ -191,8 +191,8 @@ class Player(wavelink.Player):
             colour=ctx.author.colour,
             timestamp=dt.datetime.utcnow()
         )
-        embed.set_author(name="Query Results")
-        embed.set_footer(text=f"Invoked by {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
+        #embed.set_author(name="Query Results")
+        #embed.set_footer(text=f"Invoked by {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
 
         msg = await ctx.send(embed=embed)
         for emoji in list(OPTIONS.keys())[:min(len(tracks), len(OPTIONS))]:
@@ -235,7 +235,7 @@ class Music(commands.Cog, wavelink.WavelinkMixin):
 
     @wavelink.WavelinkMixin.listener()
     async def on_node_ready(self, node):
-        print(f" Wavelink node `{node.identifier}` ready.")
+        print(f" Wavelink `{node.identifier}` nodu hazır.")
 
     @wavelink.WavelinkMixin.listener("on_track_stuck")
     @wavelink.WavelinkMixin.listener("on_track_end")
@@ -280,20 +280,20 @@ class Music(commands.Cog, wavelink.WavelinkMixin):
     async def connect_command(self, ctx, *, channel: t.Optional[discord.VoiceChannel]):
         player = self.get_player(ctx)
         channel = await player.connect(ctx, channel)
-        await ctx.send(f"Connected to {channel.name}.")
+        await ctx.send(f"{channel.name} kanalına bağlanıldı.")
 
     @connect_command.error
     async def connect_command_error(self, ctx, exc):
         if isinstance(exc, AlreadyConnectedToChannel):
-            await ctx.send("Already connected to a voice channel.")
+            await ctx.send("Halihazırda bir kanala bağlıyım.")
         elif isinstance(exc, NoVoiceChannel):
-            await ctx.send("No suitable voice channel was provided.")
+            await ctx.send("Böyle bir kanal var da ben mi bilmiyorum:/")
 
     @commands.command(name="disconnect", aliases=["leave"])
     async def disconnect_command(self, ctx):
         player = self.get_player(ctx)
         await player.teardown()
-        await ctx.send("Disconnected.")
+        await ctx.send("Bağlantı Kesildi.")
 
     @commands.command(name="play")
     async def play_command(self, ctx, *, query: t.Optional[str]):
@@ -307,7 +307,7 @@ class Music(commands.Cog, wavelink.WavelinkMixin):
                 raise QueueIsEmpty
 
             await player.set_pause(False)
-            await ctx.send("Playback resumed.")
+            await ctx.send("Şarkıyı Durdurdum.")
 
         else:
             query = query.strip("<>")
@@ -319,9 +319,9 @@ class Music(commands.Cog, wavelink.WavelinkMixin):
     @play_command.error
     async def play_command_error(self, ctx, exc):
         if isinstance(exc, QueueIsEmpty):
-            await ctx.send("No songs to play as the queue is empty.")
+            await ctx.send("Liste boş olduğundan herhangi bir şarkı çalamıyorum.")
         elif isinstance(exc, NoVoiceChannel):
-            await ctx.send("No suitable voice channel was provided.")
+            await ctx.send("Böyle bir kanal var da ben mi bilmiyorum:/")
 
     @commands.command(name="pause")
     async def pause_command(self, ctx):
@@ -331,19 +331,19 @@ class Music(commands.Cog, wavelink.WavelinkMixin):
             raise PlayerIsAlreadyPaused
 
         await player.set_pause(True)
-        await ctx.send("Playback paused.")
+        await ctx.send("Şarkıyı Durdurdum.")
 
     @pause_command.error
     async def pause_command_error(self, ctx, exc):
         if isinstance(exc, PlayerIsAlreadyPaused):
-            await ctx.send("Already paused.")
+            await ctx.send("Zaten Durdurmuştum.")
 
     @commands.command(name="stop")
     async def stop_command(self, ctx):
         player = self.get_player(ctx)
         player.queue.empty()
         await player.stop()
-        await ctx.send("Playback stopped.")
+        await ctx.send("Şarkıyı Kapattım.")
 
     @commands.command(name="next", aliases=["skip"])
     async def next_command(self, ctx):
@@ -353,14 +353,14 @@ class Music(commands.Cog, wavelink.WavelinkMixin):
             raise NoMoreTracks
 
         await player.stop()
-        await ctx.send("Playing next track in queue.")
+        await ctx.send("Sıradaki Şarkıyı Çalıyorum...")
 
     @next_command.error
     async def next_command_error(self, ctx, exc):
         if isinstance(exc, QueueIsEmpty):
-            await ctx.send("This could not be executed as the queue is currently empty.")
+            await ctx.send("Sıra şu anda tertemiz.")
         elif isinstance(exc, NoMoreTracks):
-            await ctx.send("There are no more tracks in the queue.")
+            await ctx.send("Geçiş yapabileceğim daha fazla şarkı yok.")
 
     @commands.command(name="previous")
     async def previous_command(self, ctx):
@@ -371,25 +371,25 @@ class Music(commands.Cog, wavelink.WavelinkMixin):
 
         player.queue.position -= 2
         await player.stop()
-        await ctx.send("Playing previous track in queue.")
+        await ctx.send("Bir önceki şarkıya geçiyorum...")
 
     @previous_command.error
     async def previous_command_error(self, ctx, exc):
         if isinstance(exc, QueueIsEmpty):
-            await ctx.send("This could not be executed as the queue is currently empty.")
+            await ctx.send("Sıra şu anda tertemiz.")
         elif isinstance(exc, NoPreviousTracks):
-            await ctx.send("There are no previous tracks in the queue.")
+            await ctx.send("Daha önce bir şarkı çaldık mı? Ben hatırlamıyorum.")
 
     @commands.command(name="shuffle")
     async def shuffle_command(self, ctx):
         player = self.get_player(ctx)
         player.queue.shuffle()
-        await ctx.send("Queue shuffled.")
+        await ctx.send("Sırayı karıştırıyorum.")
 
     @shuffle_command.error
     async def shuffle_command_error(self, ctx, exc):
         if isinstance(exc, QueueIsEmpty):
-            await ctx.send("The queue could not be shuffled as it is currently empty.")
+            await ctx.send("Sıra şu anda tertemiz.")
 
     @commands.command(name="repeat")
     async def repeat_command(self, ctx, mode: str):
@@ -398,41 +398,39 @@ class Music(commands.Cog, wavelink.WavelinkMixin):
 
         player = self.get_player(ctx)
         player.queue.set_repeat_mode(mode)
-        await ctx.send(f"The repeat mode has been set to {mode}.")
+        await ctx.send(f"Tekrar modu {mode} olarak ayarlandı.")
 
     @commands.command(name="queue")
     async def queue_command(self, ctx, show: t.Optional[int] = 10):
         player = self.get_player(ctx)
-
         if player.queue.is_empty:
             raise QueueIsEmpty
 
-        embed = discord.Embed(
-            title="Queue",
-            description=f"Showing up to next {show} tracks",
+        em= discord.Embed(
+            title="Sıra",
+            description=f"Sıradaki parçalar {show}",
             colour=ctx.author.colour,
             timestamp=dt.datetime.utcnow()
         )
-        embed.set_author(name="Query Results")
-        embed.set_footer(text=f"Requested by {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
-        embed.add_field(
-            name="Currently playing",
-            value=getattr(player.queue.current_track, "title", "No tracks currently playing."),
+        #em.set_author(name="Sonuçlar")
+        #em.set_footer(text=f"Requested by {ctx.message.author}", icon_url=ctx.author.avatar_url)
+        em.add_field(
+            name="Şu anda çalıyor.",
+            value=getattr(player.queue.current_track, "title", "Şu anda hiçbir şey çalmıyor."),
             inline=False
         )
         if upcoming := player.queue.upcoming:
-            embed.add_field(
-                name="Next up",
+            em.add_field(
+                name="Sıradaki...",
                 value="\n".join(t.title for t in upcoming[:show]),
                 inline=False
             )
-
-        msg = await ctx.send(embed=embed)
+        await ctx.send(embed=em)
 
     @queue_command.error
     async def queue_command_error(self, ctx, exc):
         if isinstance(exc, QueueIsEmpty):
-            await ctx.send("The queue is currently empty.")
+            await ctx.send("Sıra şu anda tertemiz.")
 
 
 def setup(bot):
