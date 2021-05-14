@@ -4,6 +4,7 @@ from discord.errors import Forbidden
 import os
 import http.client
 import datetime
+import re
 
 intents = discord.Intents.all()
 Bot = commands.Bot(command_prefix='g!',intents=intents)
@@ -13,8 +14,25 @@ Bot.remove_command('help')
 
 @Bot.event
 async def on_ready():
+    #oto_mesaj.start() #oto mesaj
     await Bot.change_presence(activity=discord.Game(name='g!help'))
     print('Kolpaya Hazırım!')
+"""
+bannedWords = ['kes','1000dolars','1000 dolars','fuck','siktir','yarrak','sik','am','amcık','sikerim','amına']
+
+def msg_contains_word(msg,word):
+    return re.search(fr'\b({word})\b',msg) is not None
+
+@Bot.event
+async def on_message(message):
+    messageAuthor = message.author
+
+    if bannedWords != None and (isinstance(message.channel,discord.channel.DMChannel)==False):
+        for bannedWord in bannedWords:
+            if msg_contains_word(message.content.lower(),bannedWord):
+                await message.delete()
+                await message.channel.send(f'{messageAuthor.mention} yasaklı kelime kullandınız!')
+"""
 
 @Bot.event
 async def on_guild_join(guild):
@@ -28,7 +46,12 @@ async def on_guild_join(guild):
             em.add_field(name='Aktiflik',value = 'Şu anda **3** sunucuda aktifim.')
             em.add_field(name='Prefix',value = 'g!')
             await channel.send(embed = em)
-           
+
+@tasks.loop(hours=24)
+async def oto_mesaj():
+    for channel in Bot.get_all_channels():
+        if channel.id == 813080714747969549:
+            await channel.send('Kolpaya Gelin!')
 #------------------------------------------------------------------
 
 #------------------------------------------------------------------
@@ -56,28 +79,41 @@ async def on_message(message):
 
 @Bot.command()
 async def cena(ctx, url='https://www.youtube.com/watch?v=2D-ZO2rGcSA&ab_channel=GamingSoundFX'):
-    if ctx.author.voice and ctx.author.voice.channel:
-        channel = ctx.author.voice.channel
-    await channel.connect()
-    voice = discord.utils.get(Bot.voice_clients, guild=ctx.guild)
-    voice.play(discord.FFmpegPCMAudio("sounds\\cena.mp3"))
+    try:
+
+        if ctx.author.voice and ctx.author.voice.channel:
+            channel = ctx.author.voice.channel
+            
+        await channel.connect()
+        voice = discord.utils.get(Bot.voice_clients, guild=ctx.guild)
+        voice.play(discord.FFmpegPCMAudio("sounds\\cena.mp3"))
+    except:
+        await ctx.send(f'{ctx.author.mention} bütün Server\'a anons yapmamı mı istiyorsun? Önce bir sesli sohbet kanalına gir!')
 
 
 @Bot.command()
 async def davul(ctx, url='https://www.youtube.com/watch?v=2D-ZO2rGcSA&ab_channel=GamingSoundFX'):
-    if ctx.author.voice and ctx.author.voice.channel:
-        channel = ctx.author.voice.channel
-    await channel.connect()
-    voice = discord.utils.get(Bot.voice_clients, guild=ctx.guild)
-    voice.play(discord.FFmpegPCMAudio("sounds\\davul.mp3"))
+    try:
+        if ctx.author.voice and ctx.author.voice.channel:
+            channel = ctx.author.voice.channel
+        await channel.connect()
+        voice = discord.utils.get(Bot.voice_clients, guild=ctx.guild)
+        voice.play(discord.FFmpegPCMAudio("sounds\\davul.mp3"))
+    except:
+        await ctx.send(f'{ctx.author.mention} bütün Server\'a anons yapmamı mı istiyorsun? Önce bir sesli sohbet kanalına gir!')
+
 
 @Bot.command()
 async def ezan(ctx, url='https://www.youtube.com/watch?v=2D-ZO2rGcSA&ab_channel=GamingSoundFX'):
-    if ctx.author.voice and ctx.author.voice.channel:
-        channel = ctx.author.voice.channel
-    await channel.connect()
-    voice = discord.utils.get(Bot.voice_clients, guild=ctx.guild)
-    voice.play(discord.FFmpegPCMAudio("sounds\\ezan.mp3"))
+    try:
+        if ctx.author.voice and ctx.author.voice.channel:
+            channel = ctx.author.voice.channel
+        await channel.connect()
+        voice = discord.utils.get(Bot.voice_clients, guild=ctx.guild)
+        voice.play(discord.FFmpegPCMAudio("sounds\\ezan.mp3"))
+    except:
+        await ctx.send(f'{ctx.author.mention} bütün Server\'a anons yapmamı mı istiyorsun? Önce bir sesli sohbet kanalına gir!')
+
 #------------------------------------------------------------------
 
 #------------------------------------------------------------------
