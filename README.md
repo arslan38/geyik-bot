@@ -11,9 +11,8 @@
 
 <div align=center>
 
-
-  <a href="https://github.com/sabattle/CalypsoBot/blob/develop/LICENSE">
-    <img src="https://img.shields.io/badge/license-GNU%20GPL%20v3-green" alt="shield.png">
+  <a href="https://github.com/arslan38/geyik-bot/LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="shield.png">
   </a>
 
 </div>
