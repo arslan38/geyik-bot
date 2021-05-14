@@ -35,9 +35,10 @@ Geyik tamamen açık kaynak kodlu bir Discord botudur. Başta Geyik Server'ı i�
 
 ## Özellikler
 
-**8** kategoride **25+** komut 
+**9** kategoride **30+** komut 
 
   * **Genel:** Geyik'in kendisi, Geyik'in anavatanı olan Geyik Server'ı ve kendi serverınız hakkında bilgi edinmek için burayı ziyaret edebilirsiniz.
+  * **Müzik:** İster şarkının linki ister adı ile arama yaparak Youtube üzerinden dilediğiniz şarkıyı dinleyebilirsiniz.
   * **Ramazan:** Tüm Türkiye için iftar ve sahur vakitlerine ulaşabilirsiniz. Sürpriz bir takım sesler ile arkadaşlarınızı eğlendirebilirsiniz.
   * **Sayaç:** `g!sayaç` ile herhangi bir konu için geri sayım baştabilirsiniz. Merak etmeyin bittiğinde sizi uyaracağız!
   * **Moderasyon:** Adminler için log oluşturma,susturma,banlama,kötü sözlerin tespiti ve susturma gibi bir çok özellik de burada.
