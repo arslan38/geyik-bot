@@ -23,6 +23,18 @@ Ramazan:
 Sayaç:
    sayaç: `g!sayaç <süre> <mode>`
 
+Müzik:
+    play: `g!play <şarkı linki ve ya adı>`
+    skip: `g!skip`
+    queue: `g!queue`
+    repeat: `g!repeat <1 veya all>`
+    pause: `g!pause`
+    stop: `g!stop`
+    shuffle: `g!shuffle`
+    previous: `g!previous`
+    connect: `g!connect <kanal adı(opsiyonel)>`
+    disconnect: `g!disconnect`
+    
 Yönetim:
    kick: `g!kick <kullanıcı>`
    ban: `g!ban <kullanıcı>`
