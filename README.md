@@ -30,9 +30,8 @@
 
 ## Hakkında
 
-Geyik tamamen açık kaynak kodlu bir Discord botudur. Başta Geyik Server'ı için özelce tasarlanmış olmasına rağmen bir çok server'ın ilham alabileceğini düşünerek Geyik'i herkese açmak istedik. [Bu](https://discord.com/api/oauth2/authorize?client_id=834114750081532004&permissions=0&scope=bot) linki kullanarak botu server'ınıza davet edebilirsiniz. Yakında [bu](https://top.gg/bot/834114750081532004) linkten de bota oy verip bize destek olabilirsiniz:)
+Geyik tamamen açık kaynak kodlu bir Discord botudur. Başta Geyik Server'ı için özelce tasarlanmış olmasına rağmen bir çok server'ın ilham alabileceğini düşünerek Geyik'i herkese açmak istedik. [Bu linki](https://discord.com/api/oauth2/authorize?client_id=834114750081532004&permissions=0&scope=bot) kullanarak botu server'ınıza davet edebilirsiniz. Yakında da [bu linkten](https://top.gg/bot/834114750081532004) botun top.gg sayfasına erişebilirsiniz.
 
- Bir yıldız⭐ bırakarak destek olabilirsiniz:)
 
 ## Özellikler
 
@@ -47,7 +46,6 @@ Geyik tamamen açık kaynak kodlu bir Discord botudur. Başta Geyik Server'ı i�
   * **Meclis:** `g!oylama` gibi komutlar ile server'ınıza demokrasi getirebilirsiniz.
   * **Futbol:** `g!superlig` ve `g!fikstur` gibi komutlar ile futbol liglerini takip edebilirsiniz. 
 
-Calypso also comes packed with a variety of features, such as:
 
 ## Kurulum
 
