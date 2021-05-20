@@ -66,4 +66,4 @@ Geliştirme süreci hala devam ediyor. İleride
 
 ## Lisans
 
- [GNU GPL v3](https://www.gnu.org/licenses/gpl-3.0.en.html) lisansı ile paylaşılmıştır.
+ [MIT](https://github.com/arslan38/geyik-bot/blob/main/LICENSE) lisansı ile paylaşılmıştır.
