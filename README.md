@@ -59,7 +59,6 @@ git clone https://github.com/arslan38/geyik-bot.git
 
 Geliştirme süreci hala devam ediyor. İleride 
 
-  * Müzik
   * Chatbot
   * Kripto Para Sistemi
   * Level Sistemi
